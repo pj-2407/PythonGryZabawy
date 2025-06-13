@@ -1,37 +1,21 @@
-from flask import Flask, render_template_string
-import random
+import string
+import secrets
 
-app = Flask(__name__)
+def generuj_bezpieczne_haslo(dlugosc=16, include_special=True):
+    # Tworzymy zbiór znaków: małe/duże litery + cyfry
+    alphabet = string.ascii_letters + string.digits
+    if include_special:
+        alphabet += string.punctuation
 
-# Dane: przedrostki, rdzenie i końcówki
-przedrostki = ["Tralalero", "Bombardiro", "Brr Brr", "Tung Tung", "Lirili", "Chippini", "Biscottino"]
-rdzen = ["Tralala", "Crocodilo", "Patapim", "Cappuccina", "Gusini", "Larilà"]
-koncowki = ["ini", "ello", "ino", "ona", "oni", "one", "etto", "ina", "ara", "ara"]
-
-# Funkcja generująca nazwę brainrot
-def generuj_brainrot():
-    p = random.choice(przedrostki)
-    r = random.choice(rdzen)
-    if random.random() < 0.6:
-        return f"{p} {r}"
-    else:
-        return r + random.choice(koncowki)
-
-# Strona główna z przyciskiem "Generate!"
-HTML = """
-<!doctype html>
-<title>Italian Brainrot Generator</title>
-<h1>🇮🇹 Italian Brainrot Name Generator</h1>
-<p><strong>{{ name }}</strong></p>
-<form method="post">
-    <button type="submit">Generuj nową nazwę</button>
-</form>
-"""
-
-@app.route("/", methods=["GET", "POST"])
-def home():
-    name = generuj_brainrot()
-    return render_template_string(HTML, name=name)
+    # W pętli generujemy hasło aż spełni podstawowe warunki:
+    while True:
+        haslo = ''.join(secrets.choice(alphabet) for _ in range(dlugosc))
+        # Sprawdzamy obecność minimum: mała, duża, cyfra
+        if (any(c.islower() for c in haslo) and
+            any(c.isupper() for c in haslo) and
+            any(c.isdigit() for c in haslo)):
+            return haslo
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    for _ in range(5):
+        print(generuj_bezpieczne_haslo(16))
