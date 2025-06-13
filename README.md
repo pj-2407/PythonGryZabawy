@@ -1,12 +1,11 @@
-# Gry i zabawy w pythonie
+# 🐍 Gry i zabawy w Pythonie
 
-Za każdy wykonany projekt, dopisek w galeri sław:
+## 🎖 Galeria Sław
 
---------------- GALERIA SŁAW ---------------
-1. 
-2.
-3.
-4.
-5.
---------------------------------------------
-
+| Nr | Imię / Projekt |
+|----|-----------------|
+| 1  |                 |
+| 2  |                 |
+| 3  |                 |
+| 4  |                 |
+| 5  |                 |
